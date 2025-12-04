@@ -1,0 +1,548 @@
+// ============================================
+// URL PARAMETER HANDLING & PERSONALIZATION
+// ============================================
+
+// Get URL parameters
+function getUrlParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+// Mapping for custom pronouns (normalize from non-diacritics to Vietnamese)
+const pronounMap = {
+    anh: "Anh",
+    chi: "Chị",
+    co: "Cô",
+    di: "Dì",
+    chu: "Chú",
+    bac: "Bác",
+    thim: "Thím",
+    mo: "Mợ",
+    cau: "Cậu",
+    em: "Em",
+    quykhach: "Quý khách"
+};
+
+// Mapping for FROM sender on envelope
+const fromMap = {
+    bo_chong: "Ông Trương Xuân Hanh",
+    me_chong: "Bà Nguyễn Thị Bích Mai",
+    chong: "Trương Minh Thắng",
+    vo: "Lê Thị Sang",
+    bo_vo: "Ông Lê Văn Luận",
+    me_vo: "Bà Hoàng Thị Loan"
+};
+
+// Get invite type text based on relationship
+function getInviteTypeText(type) {
+    const parentTypes = ['bo_chong', 'me_chong', 'bo_vo', 'me_vo'];
+    const coupleTypes = ['chong', 'vo'];
+    
+    if (parentTypes.includes(type)) {
+        return 'hai con chúng tôi';
+    } else if (coupleTypes.includes(type)) {
+        return 'chúng tôi';
+    } else {
+        return 'chúng tôi';
+    }
+}
+
+// Set personalized invitation content
+function setPersonalizedInvitation() {
+    // Get parameters from URL
+    const guestName = decodeURIComponent(getUrlParameter('guest') || 'Quý khách');
+    const pronounRaw = (getUrlParameter('custom_pronoun') || '').toLowerCase();
+    const type = getUrlParameter('type') || '';
+    
+    // Get pronoun from mapping (with diacritics)
+    const pronoun = pronounMap[pronounRaw] || '';
+    
+    // Get invite type text
+    const inviteTypeText = getInviteTypeText(type);
+    
+    // Get sender name from mapping
+    const senderName = fromMap[type] || 'Gia đình chúng tôi';
+    
+    // Set envelope content
+    document.getElementById('fromSender').textContent = senderName;
+    document.getElementById('envelopeCustomPronoun').textContent = pronoun ? pronoun + ' ' : '';
+    document.getElementById('envelopeGuestName').textContent = guestName;
+    document.getElementById('envelopeInviteType').textContent = inviteTypeText;
+    
+    // Set main invitation content
+    document.getElementById('customPronoun').textContent = pronoun ? pronoun + ' ' : '';
+    document.getElementById('guestName').textContent = guestName;
+    document.getElementById('inviteType').textContent = inviteTypeText;
+}
+
+// ============================================
+// ENVELOPE ANIMATION
+// ============================================
+function openEnvelope() {
+    const envelope = document.querySelector('.envelope');
+    const envelopeContainer = document.getElementById('envelope-container');
+    const mainContent = document.getElementById('main-content');
+    
+    // Add opening class to start animation
+    envelope.classList.add('opening');
+    
+    // Hide click instruction
+    document.querySelector('.click-instruction').style.opacity = '0';
+    
+    // After animation completes
+    setTimeout(() => {
+        // Hide envelope container
+        envelopeContainer.classList.add('hidden');
+        
+        // Show main content with fade-in and slide-up
+        mainContent.classList.remove('hidden');
+        setTimeout(() => {
+            mainContent.classList.add('show');
+        }, 100);
+    }, 2000); // Wait for envelope animation to complete
+}
+
+// ============================================
+// SMOOTH SCROLLING
+// ============================================
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+// ============================================
+// SCROLL ANIMATIONS
+// ============================================
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all sections except hero
+    document.querySelectorAll('section:not(.hero-section)').forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(50px)';
+        section.style.transition = 'opacity 1s ease, transform 1s ease';
+        observer.observe(section);
+    });
+}
+
+// ============================================
+// COPY BANK ACCOUNT NUMBER
+// ============================================
+function copyAccountNumber(accountNumber) {
+    // Remove spaces for copying
+    const cleanNumber = accountNumber.replace(/\s/g, '');
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(cleanNumber).then(() => {
+        // Find the button that was clicked and update its text
+        event.target.textContent = '✅ Đã sao chép!';
+        event.target.style.background = 'linear-gradient(135deg, #4caf50, #45a049)';
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+            event.target.textContent = '📋 Sao chép STK';
+            event.target.style.background = 'linear-gradient(135deg, var(--accent-green), var(--primary-color))';
+        }, 2000);
+    }).catch(err => {
+        console.error('Error copying:', err);
+        alert('Không thể sao chép. Vui lòng thử lại!');
+    });
+}
+
+// ============================================
+// GENERATE QR CODE FOR WEBSITE
+// ============================================
+function updateWebsiteQRCode() {
+    const currentUrl = window.location.origin + window.location.pathname;
+    const qrCodeImg = document.getElementById('website-qr');
+    
+    if (qrCodeImg) {
+        qrCodeImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(currentUrl)}`;
+        qrCodeImg.alt = 'QR Code Website';
+    }
+}
+
+// ============================================
+// COUNTDOWN TIMER (Optional)
+// ============================================
+function initCountdown() {
+    // Set your wedding date here
+    const weddingDate = new Date('2025-12-27 10:00:00').getTime();
+    
+    // You can add a countdown element to HTML and update it here
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+        
+        if (distance < 0) {
+            console.log('Wedding day has arrived! 🎉');
+            return;
+        }
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        console.log(`Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`);
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+
+// ============================================
+// LAZY LOAD IMAGES
+// ============================================
+function initLazyLoading() {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    observer.unobserve(img);
+                }
+            }
+        });
+    });
+    
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// ============================================
+// SHARE FUNCTIONALITY
+// ============================================
+async function shareWebsite() {
+    const shareData = {
+        title: 'Thiệp Cưới - Minh Thắng & Lê Sang',
+        text: 'Trân trọng kính mời bạn đến dự đám cưới của chúng tôi',
+        url: window.location.href
+    };
+    
+    try {
+        if (navigator.share) {
+            await navigator.share(shareData);
+        } else {
+            // Fallback: copy to clipboard
+            await navigator.clipboard.writeText(window.location.href);
+            alert('Đã sao chép link thiệp cưới!');
+        }
+    } catch (err) {
+        if (err.name !== 'AbortError') {
+            console.error('Error sharing:', err);
+        }
+    }
+}
+
+// ============================================
+// PREVENT RIGHT CLICK ON IMAGES (Optional)
+// ============================================
+function protectImages() {
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Prevent drag
+        img.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+            return false;
+        });
+    });
+}
+
+// ============================================
+// ADD WEDDING DATE TO CALENDAR
+// ============================================
+function addToCalendar() {
+    // Create ICS file content
+    const event = {
+        title: 'Đám cưới Minh Thắng & Lê Sang',
+        start: '20251227T100000',
+        end: '20251227T140000',
+        description: 'Lễ đón dâu và tiệc cưới',
+        location: 'Số nhà 12, đường Lê, thôn Hoàng Trì 2, xã Hoàng Văn Thụ, Hoàng Mai, Hà Nội'
+    };
+    
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${event.start}
+DTEND:${event.end}
+SUMMARY:${event.title}
+DESCRIPTION:${event.description}
+LOCATION:${event.location}
+END:VEVENT
+END:VCALENDAR`;
+    
+    // Create blob and download
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'wedding-invitation.ics';
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+// ============================================
+// MUSIC PLAYER (Optional)
+// ============================================
+function initMusicPlayer() {
+    // Add background music if you have an audio element
+    const audio = document.getElementById('background-music');
+    const musicToggle = document.getElementById('music-toggle');
+    
+    if (!audio || !musicToggle) return;
+    
+    let isPlaying = false;
+    
+    musicToggle.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            musicToggle.innerHTML = '🔇';
+            musicToggle.title = 'Bật nhạc';
+        } else {
+            audio.play();
+            musicToggle.innerHTML = '🔊';
+            musicToggle.title = 'Tắt nhạc';
+        }
+        isPlaying = !isPlaying;
+    });
+    
+    // Auto-play on user interaction (modern browsers require this)
+    document.body.addEventListener('click', function playOnce() {
+        if (!isPlaying) {
+            audio.play();
+            musicToggle.innerHTML = '🔊';
+            isPlaying = true;
+        }
+        document.body.removeEventListener('click', playOnce);
+    }, { once: true });
+}
+
+// ============================================
+// FORM VALIDATION FOR INLINE RSVP (Optional)
+// ============================================
+function initFormValidation() {
+    const rsvpForm = document.getElementById('rsvp-form');
+    if (!rsvpForm) return;
+    
+    rsvpForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('form-name').value.trim();
+        const attendance = document.getElementById('form-attendance').value;
+        
+        if (!name) {
+            alert('Vui lòng nhập họ tên');
+            return;
+        }
+        
+        if (!attendance) {
+            alert('Vui lòng chọn tham dự hay không');
+            return;
+        }
+        
+        // Submit form
+        rsvpForm.submit();
+    });
+}
+
+// ============================================
+// EASTER EGG: CONFETTI ON COUPLE NAMES CLICK
+// ============================================
+function initEasterEgg() {
+    const coupleNames = document.querySelector('.couple-names');
+    if (!coupleNames) return;
+    
+    let clickCount = 0;
+    coupleNames.addEventListener('click', () => {
+        clickCount++;
+        if (clickCount === 3) {
+            // Create simple confetti effect
+            createConfetti();
+            clickCount = 0;
+        }
+    });
+}
+
+function createConfetti() {
+    const colors = ['#c9a86a', '#7ca57c', '#fff', '#e8f3e8'];
+    const confettiCount = 50;
+    
+    for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '-10px';
+        confetti.style.opacity = '1';
+        confetti.style.borderRadius = '50%';
+        confetti.style.zIndex = '9999';
+        confetti.style.pointerEvents = 'none';
+        confetti.style.transition = 'all 3s ease-out';
+        
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+            confetti.style.top = '100vh';
+            confetti.style.opacity = '0';
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+        }, 10);
+        
+        setTimeout(() => {
+            confetti.remove();
+        }, 3000);
+    }
+}
+
+// ============================================
+// CHECK IF USER HAS VISITED BEFORE
+// ============================================
+function checkFirstVisit() {
+    const hasVisited = localStorage.getItem('wedding-visited');
+    
+    if (!hasVisited) {
+        // First time visitor
+        localStorage.setItem('wedding-visited', 'true');
+        console.log('Welcome! First time visitor 🎉');
+    } else {
+        // Returning visitor
+        console.log('Welcome back! 💕');
+    }
+}
+
+// ============================================
+// ANALYTICS: TRACK PAGE VIEWS (Optional)
+// ============================================
+function trackPageView() {
+    // You can add Google Analytics or other tracking here
+    console.log('Page viewed:', window.location.href);
+    
+    // Track which section is being viewed
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                console.log('Viewing section:', entry.target.id);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    document.querySelectorAll('section[id]').forEach(section => {
+        observer.observe(section);
+    });
+}
+
+// ============================================
+// INITIALIZE ALL FUNCTIONS
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('%c💐 Thiệp Cưới 💐', 'font-size: 24px; color: #c9a86a; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);');
+    console.log('%c🌸 Minh Thắng & Lê Sang 🌸', 'font-size: 18px; color: #7ca57c;');
+    console.log('%cChúc mừng hạnh phúc! 🎉', 'font-size: 16px; color: #8b8b8b;');
+    
+    // Core functionality
+    setPersonalizedInvitation();
+    updateWebsiteQRCode();
+    
+    // Enhancements
+    initSmoothScrolling();
+    initScrollAnimations();
+    initLazyLoading();
+    
+    // Optional features
+    // initCountdown();
+    // initMusicPlayer();
+    // initFormValidation();
+    // initEasterEgg();
+    
+    // Tracking
+    checkFirstVisit();
+    // trackPageView();
+    
+    // Image protection (uncomment if needed)
+    // protectImages();
+});
+
+// Make functions globally available
+window.openEnvelope = openEnvelope;
+window.copyAccountNumber = copyAccountNumber;
+window.shareWebsite = shareWebsite;
+window.addToCalendar = addToCalendar;
+
+// ============================================
+// KEYBOARD SHORTCUTS
+// ============================================
+document.addEventListener('keydown', (e) => {
+    // Press 'S' to share
+    if (e.key === 's' || e.key === 'S') {
+        if (!e.target.matches('input, textarea')) {
+            shareWebsite();
+        }
+    }
+    
+    // Press 'C' to add to calendar
+    if (e.key === 'c' || e.key === 'C') {
+        if (!e.target.matches('input, textarea')) {
+            addToCalendar();
+        }
+    }
+});
+
+// ============================================
+// ERROR HANDLING
+// ============================================
+window.addEventListener('error', (e) => {
+    console.error('Error occurred:', e.error);
+    // You can send errors to a logging service here
+});
+
+// ============================================
+// PERFORMANCE MONITORING
+// ============================================
+window.addEventListener('load', () => {
+    const perfData = performance.timing;
+    const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+    console.log(`Page loaded in ${pageLoadTime}ms`);
+});
+
+// ============================================
+// EXPORT FOR TESTING (Optional)
+// ============================================
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        getInviteTypeText,
+        setPersonalizedInvitation,
+        copyAccountNumber
+    };
+}
