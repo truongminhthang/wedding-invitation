@@ -79,27 +79,26 @@ function setPersonalizedInvitation() {
 // ENVELOPE ANIMATION
 // ============================================
 function openEnvelope() {
-    const envelope = document.querySelector('.envelope');
     const envelopeContainer = document.getElementById('envelope-container');
     const mainContent = document.getElementById('main-content');
-    
-    // Add opening class to start animation
-    envelope.classList.add('opening');
-    
-    // Hide click instruction
-    document.querySelector('.click-instruction').style.opacity = '0';
-    
-    // After animation completes
+     // After animation completes
     setTimeout(() => {
-        // Hide envelope container
-        envelopeContainer.classList.add('hidden');
+        // Hide envelope container completely
+        envelopeContainer.style.display = 'none';
         
-        // Show main content with fade-in and slide-up
+        // Show main content with fade-in
         mainContent.classList.remove('hidden');
         setTimeout(() => {
             mainContent.classList.add('show');
-        }, 100);
-    }, 2000); // Wait for envelope animation to complete
+        }, 50);
+    }, 500); // 1 second for zoom and fade
+
+    // Apply zoom-in and fade-out to entire envelope container
+    envelopeContainer.style.transition = 'all 1s ease-out';
+    envelopeContainer.style.transform = 'scale(2)';
+    envelopeContainer.style.opacity = '0';
+    
+   
 }
 
 // ============================================
