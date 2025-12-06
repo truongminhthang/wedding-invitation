@@ -1262,15 +1262,25 @@ section {
         height: 230px;
     }
     
+    .envelope-from {
+        font-size: 12px;
+        left: 15px;
+        top: 15px;
+        right: auto;
+        position: absolute;
+    }
+    
     .envelope-invitation {
-        left: 100px;
+        left: 15px;
         right: 15px;
         bottom: 25px;
+        top: auto;
+        position: absolute;
     }
     
     .envelope-guest {
         font-size: 18px;
-        padding-left: 10px;
+        padding-left: 0;
         text-align: left;
         line-height: 1.4;
         word-break: break-word;
@@ -1280,12 +1290,6 @@ section {
         font-size: 12px;
         text-align: left;
         margin-bottom: 8px;
-    }
-    
-    .envelope-from {
-        font-size: 12px;
-        left: 15px;
-        top: 15px;
     }
     
     .envelope-message {
