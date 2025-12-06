@@ -498,7 +498,7 @@ section {
    INVITATION SECTION
    ============================================ */
 .invitation-section {
-    background: url('images/invitation_content_background.png') center/contain no-repeat;
+    background: url('./images/invitation_content_background.png') center/contain no-repeat;
     background-size: contain;
 }
 
