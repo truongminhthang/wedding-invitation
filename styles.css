@@ -1,3 +1,39 @@
+/* ============================================
+   CUSTOM FONTS
+   ============================================ */
+@font-face {
+    font-family: 'Great Vibes';
+    src: url('fonts/GreatVibes-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* SFU Baskerville Book Font Family */
+@font-face {
+    font-family: 'SFU Baskerville Book';
+    src: url('fonts/SFU BaskervilleBook/SFUBaskervilleBookRegular.TTF') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SFU Baskerville Book';
+    src: url('fonts/SFU BaskervilleBook/SFUBaskervilleBookMedium.TTF') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SFU Baskerville Book';
+    src: url('fonts/SFU BaskervilleBook/SFUBaskervilleBookMediumItalic.TTF') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
 :root {
     --primary-color: #c9a86a;
     --secondary-color: #e8f3e8;
@@ -17,7 +53,8 @@
 }
 
 body {
-    font-family: 'Crimson Text', serif;
+    font-family: 'SFU Baskerville Book', serif;
+    font-size: 20px;
     color: var(--text-dark);
     line-height: 1.8;
     overflow-x: hidden;
@@ -25,7 +62,6 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
 }
 
@@ -182,17 +218,17 @@ h1, h2, h3, h4, h5, h6 {
     width: calc(100% - 24px);
     height: calc(100% - 24px);
     top: 12px;
-    left: 12px;
+    left: 0px;
     padding: 40px 35px;
     text-align: left;
     z-index: 5;
 }
 
 .envelope-from {
-    font-size: 13px;
+    font-size: 15px;
     color: #555;
     margin-bottom: 10px;
-    font-family: 'Courier New', monospace;
+    font-weight: 400;
     line-height: 1.8;
     text-align: left;
     position: absolute;
@@ -202,7 +238,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .envelope-from span {
     color: var(--primary-color);
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .envelope-invitation {
@@ -213,7 +249,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .envelope-greeting {
-    font-size: 16px;
+    font-size: 15px;
     color: #555;
     margin-bottom: 12px;
     font-weight: 400;
@@ -267,7 +303,6 @@ h1, h2, h3, h4, h5, h6 {
 .click-instruction p {
     font-size: 16px;
     color: var(--text-light);
-    font-family: 'Crimson Text', serif;
 }
 
 @keyframes bounce {
@@ -360,8 +395,7 @@ h1, h2, h3, h4, h5, h6 {
 .date-number {
     font-size: 64px;
     color: var(--primary-color);
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1;
     margin: 10px 0;
 }
@@ -417,18 +451,15 @@ section {
    INVITATION SECTION
    ============================================ */
 .invitation-section {
-    background: linear-gradient(135deg, var(--soft-white) 0%, var(--secondary-color) 100%);
+    background: url('images/invitation_content_background.png') center/contain no-repeat;
+    background-size: contain;
 }
 
 .invitation-content {
     max-width: 800px;
     margin: 0 auto;
     padding: 60px 40px;
-    background: var(--white);
-    border-radius: 15px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border: 2px solid var(--accent-green);
 }
 
 .invitation-greeting {
@@ -471,7 +502,7 @@ section {
    OPENING SECTION
    ============================================ */
 .opening-section {
-    background: var(--cream);
+        background: url('images/background_opening_section.png') center/cover no-repeat;
 }
 
 .opening-content {
@@ -481,7 +512,7 @@ section {
 }
 
 .quote {
-    font-size: 24px;
+    font-size: 20px;
     font-style: italic;
     color: var(--primary-color);
     margin-bottom: 40px;
@@ -489,10 +520,15 @@ section {
 }
 
 .opening-content p {
-    font-size: 19px;
-    line-height: 2;
+    line-height: 1.6;
     color: var(--text-dark);
     margin-bottom: 25px;
+}
+
+.opening-content .highlight-text {
+    font-style: italic;
+    color: var(--primary-color);
+    font-weight: 500;
 }
 
 /* ============================================
@@ -667,86 +703,81 @@ section {
    EVENTS SECTION
    ============================================ */
 .events-section {
-    background: var(--secondary-color);
+    background: var(--cream);
+    padding: 80px 0;
 }
 
 .event-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
+    gap: 40px;
+    margin-top: 60px;
 }
 
 .event-card {
     background: var(--white);
-    padding: 50px 35px;
-    border-radius: 15px;
+    padding: 60px 40px;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    border: 2px solid transparent;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(201, 168, 106, 0.2);
     position: relative;
 }
 
 .event-card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-    border-color: var(--accent-green);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
 .event-card.highlight {
-    background: linear-gradient(135deg, var(--soft-white) 0%, var(--white) 100%);
-    border: 3px solid var(--primary-color);
+    background: linear-gradient(135deg, #fdfcf8 0%, #ffffff 100%);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 10px 30px rgba(201, 168, 106, 0.2);
 }
 
-.event-time-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: var(--primary-color);
-    color: var(--white);
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.event-icon {
-    font-size: 56px;
-    margin-bottom: 20px;
-}
-
-.event-card h3 {
-    font-size: 32px;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
-.event-date {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 20px;
+.event-title {
+    font-size: 28px;
+    font-weight: 500;
     color: var(--text-dark);
+    margin-bottom: 20px;
+    letter-spacing: 3px;
 }
 
-.event-divider {
-    width: 60px;
-    height: 2px;
-    background: var(--accent-green);
-    margin: 20px auto;
+.event-time {
+    font-size: 18px;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
 }
 
-.event-location-title {
-    font-size: 19px;
-    font-weight: 600;
-    color: var(--accent-green);
-    margin-bottom: 10px;
+.event-date-large {
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin: 20px 0;
+    letter-spacing: 2px;
+}
+
+.event-description {
+    font-size: 18px;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.event-location-label {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
 }
 
 .event-location {
-    font-size: 16px;
+    font-size: 18px;
     color: var(--text-light);
-    line-height: 1.6;
+    line-height: 1.8;
 }
 
 /* ============================================
@@ -897,83 +928,15 @@ section {
 }
 
 .bank-card {
-    background: var(--white);
-    padding: 50px 40px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 3px solid var(--accent-green);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1;
+    min-width: 280px;
+    max-width: 500px;
 }
 
-.bank-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-}
-
-.bank-icon {
-    font-size: 56px;
-    margin-bottom: 20px;
-}
-
-.bank-card h3 {
-    font-size: 32px;
-    color: var(--primary-color);
-    margin-bottom: 25px;
-}
-
-.bank-details {
-    margin-bottom: 30px;
-}
-
-.bank-details p {
-    margin-bottom: 12px;
-    font-size: 17px;
-    color: var(--text-dark);
-}
-
-.account-number {
-    font-family: 'Courier New', monospace;
-    font-weight: 600;
-    color: var(--primary-color);
-    font-size: 18px;
-}
-
-.qr-code {
-    margin: 30px 0;
-    display: flex;
-    justify-content: center;
-}
-
-.qr-code img {
-    width: 200px;
-    height: 200px;
-    border: 3px solid var(--accent-green);
-    border-radius: 10px;
-    padding: 10px;
-    background: var(--white);
-}
-
-.copy-btn {
-    background: linear-gradient(135deg, var(--accent-green), var(--primary-color));
-    color: var(--white);
-    border: none;
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: 'Crimson Text', serif;
-}
-
-.copy-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(124, 165, 124, 0.4);
-}
-
-.copy-btn:active {
-    transform: translateY(0);
+.bank-card img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* ============================================
@@ -1009,7 +972,6 @@ section {
     font-weight: 600;
     transition: all 0.4s ease;
     box-shadow: 0 10px 30px rgba(124, 165, 124, 0.3);
-    font-family: 'Crimson Text', serif;
 }
 
 .rsvp-button:hover {
@@ -1119,8 +1081,7 @@ section {
 .signature-name {
     font-size: 32px;
     color: var(--primary-color);
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 8px;
 }
 
@@ -1204,12 +1165,25 @@ section {
         height: 230px;
     }
     
+    .envelope-invitation {
+        left: 150px;
+        right: 20px;
+        bottom: 20px;
+    }
+    
     .envelope-guest {
-        font-size: 24px;
+        font-size: 20px;
+        padding-left: 15px;
+        text-align: left;
     }
     
     .envelope-greeting {
-        font-size: 15px;
+        font-size: 13px;
+        text-align: left;
+    }
+    
+    .envelope-from {
+        font-size: 13px;
     }
     
     .envelope-message {
@@ -1217,7 +1191,7 @@ section {
     }
     
     .envelope-content {
-        padding: 30px 25px;
+        padding: 25px 20px;
     }
     
     .envelope-front::before {
@@ -1329,6 +1303,31 @@ section {
     
     .event-cards {
         grid-template-columns: 1fr;
+    }
+    
+    .event-title {
+        font-size: 24px;
+        letter-spacing: 2px;
+    }
+    
+    .event-time {
+        font-size: 12px;
+    }
+    
+    .event-date-large {
+        font-size: 36px;
+    }
+    
+    .event-description {
+        font-size: 12px;
+    }
+    
+    .event-location-label {
+        font-size: 14px;
+    }
+    
+    .event-location {
+        font-size: 14px;
     }
     
     .bank-info {

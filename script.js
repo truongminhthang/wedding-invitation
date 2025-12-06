@@ -67,7 +67,6 @@ function setPersonalizedInvitation() {
     document.getElementById('fromSender').textContent = senderName;
     document.getElementById('envelopeCustomPronoun').textContent = pronoun ? pronoun + ' ' : '';
     document.getElementById('envelopeGuestName').textContent = guestName;
-    document.getElementById('envelopeInviteType').textContent = inviteTypeText;
     
     // Set main invitation content
     document.getElementById('customPronoun').textContent = pronoun ? pronoun + ' ' : '';
