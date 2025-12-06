@@ -33,15 +33,33 @@ const fromMap = {
     me_vo: "Bà Hoàng Thị Loan"
 };
 
-// Get invite type text based on relationship
-function getInviteTypeText(type) {
+// Get invite type text based on relationship and pronoun
+function getInviteTypeText(sender, pronoun) {
     const parentTypes = ['bo_chong', 'me_chong', 'bo_vo', 'me_vo'];
     const coupleTypes = ['chong', 'vo'];
     
-    if (parentTypes.includes(type)) {
-        return 'hai con chúng tôi';
-    } else if (coupleTypes.includes(type)) {
-        return 'chúng tôi';
+    // Determine if guest is younger or older based on pronoun
+    const youngerPronouns = ['Em'];
+    const olderPronouns = ['Anh', 'Chị', 'Cô', 'Dì', 'Chú', 'Bác', 'Thím', 'Mợ', 'Cậu'];
+    
+    const isYounger = youngerPronouns.includes(pronoun);
+    const isOlder = olderPronouns.includes(pronoun);
+    
+    if (parentTypes.includes(sender)) {
+        // Parents inviting
+            return 'hai con chúng tôi';
+        
+    } else if (coupleTypes.includes(sender)) {
+        // Couple inviting
+        if (pronoun === 'Anh' || pronoun === 'Chị') {
+            return 'chúng em';
+        } else if (pronoun === 'Cô' || pronoun === 'Dì' || pronoun === 'Chú' || pronoun === 'Bác' || pronoun === 'Thím' || pronoun === 'Cậu' || pronoun === 'Mợ') {
+            return 'chúng cháu';
+        } else if (isYounger) {
+            return 'chúng tôi';
+        } else {
+            return 'chúng tôi';
+        }
     } else {
         return 'chúng tôi';
     }
@@ -51,17 +69,17 @@ function getInviteTypeText(type) {
 function setPersonalizedInvitation() {
     // Get parameters from URL
     const guestName = decodeURIComponent(getUrlParameter('guest') || 'Quý khách');
-    const pronounRaw = (getUrlParameter('custom_pronoun') || '').toLowerCase();
-    const type = getUrlParameter('type') || '';
+    const pronounRaw = (getUrlParameter('pronoun') || '').toLowerCase();
+    const sender = getUrlParameter('sender') || '';
     
     // Get pronoun from mapping (with diacritics)
     const pronoun = pronounMap[pronounRaw] || '';
     
-    // Get invite type text
-    const inviteTypeText = getInviteTypeText(type);
+    // Get invite type text with pronoun context
+    const inviteTypeText = getInviteTypeText(sender, pronoun);
     
     // Get sender name from mapping
-    const senderName = fromMap[type] || 'Gia đình chúng tôi';
+    const senderName = fromMap[sender] || 'Gia đình chúng tôi';
     
     // Set envelope content
     document.getElementById('fromSender').textContent = senderName;
