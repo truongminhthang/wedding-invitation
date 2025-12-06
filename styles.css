@@ -497,18 +497,21 @@ section {
 /* ============================================
    INVITATION SECTION
    ============================================ */
-.invitation-section {
-}
+
 
 
 .invitation-content {
     max-width: 800px;
     margin: 0 auto;
-    padding: 110px 60px;
+    padding: 80px 20px;
     text-align: center;
     background: url('./images/invitation_content_background.webp') center/contain no-repeat;
     background-size: contain;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
 }
 
 .invitation-greeting {
@@ -1198,7 +1201,7 @@ section {
    FOOTER
    ============================================ */
 .footer {
-    background: linear-gradient(135deg, var(--accent-green), var(--primary-color));
+    background: linear-gradient(135deg, var(--primary-color), #b89557);
     color: var(--white);
     padding: 40px 20px;
 }
@@ -1256,7 +1259,8 @@ section {
     }
     
     .invitation-content {
-        padding: 40px 25px;
+        padding: 110px 60px;
+
     }
     
     .envelope {
