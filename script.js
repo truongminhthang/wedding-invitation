@@ -80,6 +80,19 @@ function setPersonalizedInvitation() {
 function openEnvelope() {
     const envelopeContainer = document.getElementById('envelope-container');
     const mainContent = document.getElementById('main-content');
+    const bgMusic = document.getElementById('backgroundMusic');
+    
+    // Start playing music when envelope is opened
+    bgMusic.play().catch(err => {
+        console.log('Autoplay prevented:', err);
+        // Music will play when user interacts with the page
+    });
+    
+    // Update music toggle button state
+    const musicToggle = document.getElementById('musicToggle');
+    musicToggle.classList.add('playing');
+    musicToggle.querySelector('.music-icon').textContent = '🔊';
+    
      // After animation completes
     setTimeout(() => {
         // Hide envelope container completely
@@ -99,6 +112,33 @@ function openEnvelope() {
     
    
 }
+
+// ============================================
+// BACKGROUND MUSIC CONTROL
+// ============================================
+function toggleMusic() {
+    const bgMusic = document.getElementById('backgroundMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicIcon = musicToggle.querySelector('.music-icon');
+    
+    if (bgMusic.paused) {
+        bgMusic.play();
+        musicToggle.classList.add('playing');
+        musicIcon.textContent = '🔊';
+    } else {
+        bgMusic.pause();
+        musicToggle.classList.remove('playing');
+        musicIcon.textContent = '🔇';
+    }
+}
+
+// Try to play music on any user interaction if autoplay was blocked
+document.addEventListener('click', function initMusic() {
+    const bgMusic = document.getElementById('backgroundMusic');
+    if (bgMusic.paused) {
+        bgMusic.play().catch(() => {});
+    }
+}, { once: true });
 
 // ============================================
 // SMOOTH SCROLLING
@@ -497,6 +537,24 @@ window.openEnvelope = openEnvelope;
 window.copyAccountNumber = copyAccountNumber;
 window.shareWebsite = shareWebsite;
 window.addToCalendar = addToCalendar;
+
+// ============================================
+// GIFT SECTION TOGGLE
+// ============================================
+function toggleGiftInfo() {
+    const bankInfo = document.getElementById('bankInfo');
+    const toggleButton = event.currentTarget;
+    const toggleText = toggleButton.querySelector('.toggle-text');
+    
+    bankInfo.classList.toggle('collapsed');
+    toggleButton.classList.toggle('active');
+    
+    if (bankInfo.classList.contains('collapsed')) {
+        toggleText.textContent = 'Xem thông tin tài khoản';
+    } else {
+        toggleText.textContent = 'Ẩn thông tin tài khoản';
+    }
+}
 
 // ============================================
 // KEYBOARD SHORTCUTS

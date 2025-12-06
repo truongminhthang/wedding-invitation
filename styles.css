@@ -54,7 +54,7 @@
 
 body {
     font-family: 'SFU Baskerville Book', serif;
-    font-size: 20px;
+    font-size: 22px;
     color: var(--text-dark);
     line-height: 1.8;
     overflow-x: hidden;
@@ -79,6 +79,52 @@ h1, h2, h3, h4, h5, h6 {
     height: 80px;
     margin: 0 auto 30px;
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="3" fill="%23c9a86a"/><path d="M50 30 Q45 40 50 50 Q55 40 50 30 M70 50 Q60 45 50 50 Q60 55 70 50 M50 70 Q45 60 50 50 Q55 60 50 70 M30 50 Q40 45 50 50 Q40 55 30 50" fill="none" stroke="%237ca57c" stroke-width="1.5"/></svg>') center/contain no-repeat;
+}
+
+/* ============================================
+   MUSIC CONTROL
+   ============================================ */
+.music-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), #b89557);
+    border: none;
+    color: var(--white);
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(201, 168, 106, 0.4);
+    transition: all 0.3s ease;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(201, 168, 106, 0.5);
+}
+
+.music-toggle:active {
+    transform: scale(0.95);
+}
+
+.music-icon {
+    display: block;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.music-toggle.playing .music-icon {
+    animation: none;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
 }
 
 /* ============================================
@@ -441,7 +487,8 @@ section {
 
 .section-subtitle {
     text-align: center;
-    font-size: 18px;
+    font-size: 24px;
+    font-family: 'SFU Baskerville Book', serif;
     color: var(--text-light);
     margin-bottom: 40px;
     font-style: italic;
@@ -512,7 +559,7 @@ section {
 }
 
 .quote {
-    font-size: 20px;
+    font-size: 22px;
     font-style: italic;
     color: var(--primary-color);
     margin-bottom: 40px;
@@ -647,7 +694,7 @@ section {
    PHOTO GALLERY
    ============================================ */
 .gallery-section {
-    background: var(--cream);
+    background: var(--secondary-color);
 }
 
 .photo-grid {
@@ -737,7 +784,7 @@ section {
 }
 
 .event-title {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 500;
     color: var(--text-dark);
     margin-bottom: 20px;
@@ -745,14 +792,14 @@ section {
 }
 
 .event-time {
-    font-size: 18px;
+    font-size: 22px;
     color: var(--text-light);
     margin-bottom: 15px;
     letter-spacing: 1px;
 }
 
 .event-date-large {
-    font-size: 42px;
+    font-size: 46px;
     font-weight: 500;
     color: var(--primary-color);
     margin: 20px 0;
@@ -760,14 +807,14 @@ section {
 }
 
 .event-description {
-    font-size: 18px;
+    font-size: 22px;
     color: var(--text-dark);
     margin-bottom: 30px;
     letter-spacing: 1px;
 }
 
 .event-location-label {
-    font-size: 15px;
+    font-size: 24px;
     font-weight: 500;
     color: var(--text-dark);
     margin-bottom: 15px;
@@ -775,7 +822,7 @@ section {
 }
 
 .event-location {
-    font-size: 18px;
+    font-size: 24px;
     color: var(--text-light);
     line-height: 1.8;
 }
@@ -784,7 +831,7 @@ section {
    BUS SCHEDULE
    ============================================ */
 .bus-section {
-    background: var(--cream);
+    background: var(--secondary-color);
 }
 
 .table-responsive {
@@ -810,7 +857,8 @@ section {
 .bus-table th {
     padding: 20px 15px;
     text-align: left;
-    font-size: 17px;
+    font-size: 23px;
+    font-family: 'SFU Baskerville Book', serif;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -819,7 +867,8 @@ section {
 .bus-table td {
     padding: 18px 15px;
     text-align: left;
-    font-size: 16px;
+    font-size: 22px;
+    font-family: 'SFU Baskerville Book', serif;
 }
 
 .bus-table tbody tr {
@@ -835,19 +884,40 @@ section {
     border-bottom: none;
 }
 
+.clickable-location {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clickable-location:hover {
+    background-color: rgba(201, 168, 106, 0.1);
+}
+
+.clickable-contact {
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: background-color 0.3s ease;
+}
+
+.clickable-contact:hover {
+    background-color: rgba(201, 168, 106, 0.1);
+    text-decoration: underline;
+}
+
 .bus-note {
     text-align: center;
     margin-top: 20px;
     color: var(--text-light);
     font-style: italic;
-    font-size: 15px;
+    font-size: 21px;
+    font-family: 'SFU Baskerville Book', serif;
 }
 
 /* ============================================
    MAP SECTION
    ============================================ */
 .map-section {
-    background: var(--secondary-color);
+    background: var(--cream);
 }
 
 .map-grid {
@@ -862,7 +932,6 @@ section {
     padding: 35px;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 2px solid var(--accent-green);
     transition: transform 0.3s ease;
 }
 
@@ -881,12 +950,12 @@ section {
     margin-bottom: 20px;
     border-radius: 10px;
     overflow: hidden;
-    border: 2px solid var(--secondary-color);
 }
 
 .map-address {
     text-align: center;
-    font-size: 18px;
+    font-size: 22px;
+    font-family: 'SFU Baskerville Book', serif;
     font-weight: 600;
     color: var(--accent-green);
     margin-bottom: 8px;
@@ -896,15 +965,17 @@ section {
 .map-detail {
     text-align: center;
     color: var(--text-light);
-    font-size: 15px;
+    font-size: 22px;
+    font-family: 'SFU Baskerville Book', serif;
     line-height: 1.6;
+    margin-bottom: 25px;
 }
 
 /* ============================================
    GIFT SECTION
    ============================================ */
 .gift-section {
-    background: var(--cream);
+    background: var(--secondary-color);
 }
 
 .gift-content {
@@ -916,8 +987,41 @@ section {
     text-align: center;
     font-size: 19px;
     line-height: 2;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     color: var(--text-dark);
+}
+
+.common-button {
+    display: block;
+    margin: 0 auto 30px;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, var(--primary-color), #b89557);
+    color: var(--white);
+    border: none;
+    border-radius: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(201, 168, 106, 0.3);
+    width: fit-content;
+}
+
+.common-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(201, 168, 106, 0.4);
+}
+
+.toggle-icon {
+    display: inline-block;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.common-button.active .toggle-icon {
+    transform: rotate(180deg);
 }
 
 .bank-info {
@@ -925,6 +1029,16 @@ section {
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 40px;
     margin-top: 40px;
+    max-height: 800px;
+    overflow: hidden;
+    opacity: 1;
+    transition: max-height 0.5s ease, opacity 0.3s ease, margin-top 0.3s ease;
+}
+
+.bank-info.collapsed {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
 }
 
 .bank-card {
@@ -943,7 +1057,7 @@ section {
    RSVP SECTION
    ============================================ */
 .rsvp-section {
-    background: var(--secondary-color);
+    background: var(--cream);
 }
 
 .rsvp-content {
@@ -953,34 +1067,16 @@ section {
 }
 
 .rsvp-intro {
-    font-size: 20px;
+    font-size: 22px;
+    font-family: 'SFU Baskerville Book', serif;
     margin-bottom: 40px;
     color: var(--text-dark);
     line-height: 1.8;
 }
 
-.rsvp-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 18px 50px;
-    background: linear-gradient(135deg, var(--accent-green), var(--primary-color));
-    color: var(--white);
-    text-decoration: none;
-    border-radius: 50px;
-    font-size: 20px;
-    font-weight: 600;
-    transition: all 0.4s ease;
-    box-shadow: 0 10px 30px rgba(124, 165, 124, 0.3);
-}
-
-.rsvp-button:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(124, 165, 124, 0.4);
-}
-
 .rsvp-note {
-    font-size: 16px !important;
+    font-size: 20px !important;
+    font-family: 'SFU Baskerville Book', serif;
     font-style: italic;
     margin-top: 30px !important;
     color: var(--text-light);
@@ -995,7 +1091,8 @@ section {
 }
 
 .rsvp-info p {
-    font-size: 17px;
+    font-size: 22px;
+    font-family: 'SFU Baskerville Book', serif;
     margin-bottom: 10px;
     color: var(--text-dark);
 }
@@ -1004,7 +1101,7 @@ section {
    THANK YOU SECTION
    ============================================ */
 .thank-you-section {
-    background: var(--cream);
+    background: var(--secondary-color);
 }
 
 .thank-you-content {
@@ -1306,28 +1403,28 @@ section {
     }
     
     .event-title {
-        font-size: 24px;
+        font-size: 26px;
         letter-spacing: 2px;
     }
     
     .event-time {
-        font-size: 12px;
+        font-size: 16px;
     }
     
     .event-date-large {
-        font-size: 36px;
+        font-size: 40px;
     }
     
     .event-description {
-        font-size: 12px;
+        font-size: 16px;
     }
     
     .event-location-label {
-        font-size: 14px;
+        font-size: 18px;
     }
     
     .event-location {
-        font-size: 14px;
+        font-size: 18px;
     }
     
     .bank-info {
