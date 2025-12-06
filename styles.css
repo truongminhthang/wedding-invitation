@@ -383,7 +383,7 @@ h1, h2, h3, h4, h5, h6 {
    ============================================ */
 .hero-section {
     min-height: 100vh;
-    background: url('images/hero_session.jpg') center/cover no-repeat;
+    background: url('images/hero_session.webp') center/cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -498,7 +498,7 @@ section {
    INVITATION SECTION
    ============================================ */
 .invitation-section {
-    background: url('./images/invitation_content_background.png') center/contain no-repeat;
+    background: url('./images/invitation_content_background.webp') center/contain no-repeat;
     background-size: contain;
 }
 
@@ -549,7 +549,7 @@ section {
    OPENING SECTION
    ============================================ */
 .opening-section {
-        background: url('images/background_opening_section.png') center/cover no-repeat;
+        background: url('./images/background_opening_section.webp') center/cover no-repeat;
 }
 
 .opening-content {
