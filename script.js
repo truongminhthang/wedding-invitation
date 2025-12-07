@@ -21,6 +21,7 @@ const pronounMap = {
     cau: "Cậu",
     em: "Em",
     ban: "Bạn",
+    chau: "Cháu",
     quykhach: "Quý khách"
 };
 
@@ -43,6 +44,7 @@ function getInviteTypeText(sender, pronoun) {
     const youngerPronouns = ['Em'];
     const olderPronouns = ['Anh', 'Chị', 'Cô', 'Dì', 'Chú', 'Bác', 'Thím', 'Mợ', 'Cậu'];
     const peerPronouns = ['Bạn'];
+    const grandchildPronouns = ['Cháu'];
     
     const isYounger = youngerPronouns.includes(pronoun);
     const isOlder = olderPronouns.includes(pronoun);
@@ -60,6 +62,8 @@ function getInviteTypeText(sender, pronoun) {
             return 'chúng cháu';
         } else if (pronoun === 'Bạn') {
             return 'chúng mình';
+        } else if (pronoun === 'Cháu') {
+            return 'chúng con';
         } else if (isYounger) {
             return 'chúng tôi';
         } else {
