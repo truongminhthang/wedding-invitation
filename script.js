@@ -63,7 +63,7 @@ function getInviteTypeText(sender, pronoun) {
         } else if (pronoun === 'Bạn') {
             return 'chúng mình';
         } else if (pronoun === 'Cháu') {
-            return 'chúng con';
+            return 'cô chú';
         } else if (isYounger) {
             return 'chúng tôi';
         } else {
