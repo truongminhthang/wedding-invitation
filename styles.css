@@ -526,6 +526,7 @@ section {
     color: var(--primary-color);
     margin-bottom: 20px;
     line-height: 1.7;
+    max-width: 600px;
 }
 
 .guest-name span {
@@ -1249,6 +1250,7 @@ section {
     .guest-name {
         font-size: 30px;
         line-height: 1.2;
+        max-width: 600px;
     }
     
     .invitation-greeting {
@@ -1415,6 +1417,8 @@ section {
     .guest-name {
         font-size: 28px;
         line-height: 1.2;
+        max-width: 400px;
+
     }
     
     .invitation-greeting {
