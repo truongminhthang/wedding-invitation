@@ -20,6 +20,7 @@ const pronounMap = {
     mo: "Mợ",
     cau: "Cậu",
     em: "Em",
+    ban: "Bạn",
     quykhach: "Quý khách"
 };
 
@@ -41,9 +42,11 @@ function getInviteTypeText(sender, pronoun) {
     // Determine if guest is younger or older based on pronoun
     const youngerPronouns = ['Em'];
     const olderPronouns = ['Anh', 'Chị', 'Cô', 'Dì', 'Chú', 'Bác', 'Thím', 'Mợ', 'Cậu'];
+    const peerPronouns = ['Bạn'];
     
     const isYounger = youngerPronouns.includes(pronoun);
     const isOlder = olderPronouns.includes(pronoun);
+    const isPeer = peerPronouns.includes(pronoun);
     
     if (parentTypes.includes(sender)) {
         // Parents inviting
@@ -55,6 +58,8 @@ function getInviteTypeText(sender, pronoun) {
             return 'chúng em';
         } else if (pronoun === 'Cô' || pronoun === 'Dì' || pronoun === 'Chú' || pronoun === 'Bác' || pronoun === 'Thím' || pronoun === 'Cậu' || pronoun === 'Mợ') {
             return 'chúng cháu';
+        } else if (pronoun === 'Bạn') {
+            return 'chúng mình';
         } else if (isYounger) {
             return 'chúng tôi';
         } else {
