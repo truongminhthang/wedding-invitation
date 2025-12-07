@@ -1247,13 +1247,13 @@ section {
     }
     
     .guest-name {
-        font-size: 32px;
+        font-size: 30px;
         line-height: 1.2;
     }
     
     .invitation-greeting {
         font-size: 20px;
-        margin-top: 20px;
+        margin-top: 30px;
     }
     
     .invitation-text {
@@ -1262,7 +1262,6 @@ section {
     }
     
     .invitation-content {
-        padding: 60px 30px;
         min-width: 280px;
         min-height: 50vh;
     }
