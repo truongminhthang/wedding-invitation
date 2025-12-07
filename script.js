@@ -346,33 +346,50 @@ function protectImages() {
 // ============================================
 // ADD WEDDING DATE TO CALENDAR
 // ============================================
-function addToCalendar() {
-    // Create ICS file content
-    const event = {
-        title: 'Đám cưới Minh Thắng & Lê Sang',
-        start: '20251227T100000',
-        end: '20251227T140000',
-        description: 'Lễ đón dâu và tiệc cưới',
-        location: 'Số nhà 12, đường Lê, thôn Hoàng Trì 2, xã Hoàng Văn Thụ, Hoàng Mai, Hà Nội'
+function addToCalendar(eventType) {
+    // Define event details based on type
+    const events = {
+        engagement: {
+            title: 'Lễ Ăn Hỏi - Trương Minh Thắng & Lê Thị Sang',
+            start: '20251227T090000',
+            end: '20251227T120000',
+            description: 'Lễ Ăn Hỏi\\nTức ngày 08 tháng 11 năm Ất Tỵ',
+            location: 'Số nhà 19, đường số 1, thôn Hoằng Trì 2, xã Hoằng Thắng (cũ), nay là xã Hoằng Châu, Tỉnh Thanh Hoá'
+        },
+        wedding: {
+            title: 'Lễ Đón Dâu & Tiệc Cưới - Trương Minh Thắng & Lê Thị Sang',
+            start: '20251228T103000',
+            end: '20251228T140000',
+            description: 'Lễ Đón Dâu và Tiệc Cưới\\nTức ngày 09 tháng 11 năm Ất Tỵ',
+            location: 'Thôn Ngũ Phúc, xã Tam Đa, huyện Phù Cừ, nay là xã Tống Trân, Tỉnh Hưng Yên'
+        }
     };
     
+    const event = events[eventType] || events.wedding;
+    
+    // Create ICS file content
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
+PRODID:-//Wedding Invitation//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:${event.start}
 DTEND:${event.end}
 SUMMARY:${event.title}
 DESCRIPTION:${event.description}
 LOCATION:${event.location}
+STATUS:CONFIRMED
+SEQUENCE:0
 END:VEVENT
 END:VCALENDAR`;
     
     // Create blob and download
-    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'wedding-invitation.ics';
+    link.download = `wedding-${eventType}-invitation.ics`;
     link.click();
     URL.revokeObjectURL(url);
 }

@@ -1021,6 +1021,10 @@ section {
     box-shadow: 0 8px 20px rgba(201, 168, 106, 0.4);
 }
 
+.calendar-button {
+    margin-top: 25px;
+}
+
 .toggle-icon {
     display: inline-block;
     margin-left: 10px;
