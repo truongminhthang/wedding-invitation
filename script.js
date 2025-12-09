@@ -52,7 +52,11 @@ function getInviteTypeText(sender, pronoun) {
     
     if (parentTypes.includes(sender)) {
         // Parents inviting
+        if (pronoun === 'Anh' || pronoun === 'Chị') {
+            return 'chúng tôi';
+        } else {
             return 'hai con chúng tôi';
+        }
         
     } else if (coupleTypes.includes(sender)) {
         // Couple inviting
