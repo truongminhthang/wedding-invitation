@@ -1481,6 +1481,17 @@ section {
         padding: 35px 25px;
     }
     
+    .qr-website {
+        padding: 30px 15px;
+        margin: 40px 0;
+    }
+    
+    .qr-code-large img {
+        width: 160px;
+        height: 160px;
+        padding: 10px;
+    }
+    
     /* Mobile-friendly table */
     .bus-table thead {
         display: none;
