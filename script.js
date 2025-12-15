@@ -56,7 +56,6 @@ function getInviteTypeText(sender, pronoun) {
             return 'chúng tôi';
         } else {
             return 'hai con chúng tôi';
-        }
         
     } else if (coupleTypes.includes(sender)) {
         // Couple inviting
@@ -103,6 +102,20 @@ function setPersonalizedInvitation() {
     document.getElementById('customPronoun').textContent = pronoun ? pronoun + ' ' : '';
     document.getElementById('guestName').textContent = guestName;
     document.getElementById('inviteType').textContent = inviteTypeText;
+    
+    // Set all other instances of invite type text throughout the page
+    const inviteType2 = document.getElementById('inviteType2');
+    const inviteType3 = document.getElementById('inviteType3');
+    
+    if (inviteType2) inviteType2.textContent = inviteTypeText;
+    if (inviteType3) inviteType3.textContent = inviteTypeText.charAt(0).toUpperCase() + inviteTypeText.slice(1);
+    
+    // Hide gift section if sender is parent
+    const parentTypes = ['bo_chong', 'me_chong', 'bo_vo', 'me_vo'];
+    const giftSection = document.getElementById('gift');
+    if (giftSection && parentTypes.includes(sender)) {
+        giftSection.style.display = 'none';
+    }
 }
 
 // ============================================
